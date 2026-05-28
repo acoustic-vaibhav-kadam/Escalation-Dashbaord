@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Weekly Global Escalation Trend — Acoustic CSD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- HEADER — populated dynamically by app.js -->
+<div class="hdr">
+  <div class="hdr-eyebrow">CSD Intelligence &middot; Support Escalation Report</div>
+  <div class="hdr-title">Weekly Global Escalation Trend</div>
+  <div class="hdr-sub" id="hdr-subtitle">Loading&hellip;</div>
+  <div class="hdr-logo">Acoustic<span>.</span></div>
+  <div class="hdr-meta">
+    <div class="hdr-meta-item"><strong id="meta-glob-avg">—</strong>Global Avg Rate</div>
+    <div class="hdr-meta-item"><strong id="meta-total-esc">—</strong>Total Escalations (8w)</div>
+    <div class="hdr-meta-item"><strong id="meta-total-tkt">—</strong>Total Tickets (8w)</div>
+    <div class="hdr-meta-item"><strong id="meta-backlog">—</strong>Live Open Backlog</div>
+    <div class="hdr-meta-item"><strong id="meta-generated">—</strong>Generated</div>
+  </div>
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab active" data-tab="exec">Executive Summary</button>
+  <button class="tab" data-tab="trend">8-Week Trend</button>
+  <button class="tab" data-tab="lastweek" id="tab-lastweek">Last Week</button>
+  <button class="tab" data-tab="categories">Categories</button>
+  <button class="tab" data-tab="backlog">Backlog &amp; Aging</button>
+</div>
+
+<!-- ── PANE: EXECUTIVE SUMMARY ── -->
+<div id="pane-exec" class="pane active">
+  <p class="section-title">Global KPI Summary</p>
+  <p class="section-note">8-week cumulative rates. Formula: hot_case &cup; client_esc. Region-tagged tickets only.</p>
+  <div class="kpi-grid" id="exec-kpi-grid"></div>
+
+  <div class="cc-grid">
+    <div class="cc">
+      <div class="cc-title">Global Escalation Rate &mdash; 8-Week Trend</div>
+      <div class="cc-sub">10% dashed = reference</div>
+      <div class="chart-wrap h220"><canvas id="chartGlobal"></canvas></div>
+    </div>
+    <div class="cc">
+      <div class="cc-title">Escalation Type Distribution (8w)</div>
+      <div class="cc-sub">Hot Case Only &middot; Client Esc Only &middot; Both</div>
+      <div class="chart-wrap h220"><canvas id="chartTypeDist"></canvas></div>
+    </div>
+  </div>
+
+  <p class="section-title" style="margin-top:8px">Regional Breakdown</p>
+  <div class="region-row" id="exec-region-row"></div>
+
+  <div class="obs-box">
+    <div class="obs-title">Key Observations</div>
+    <div id="exec-obs"></div>
+  </div>
+</div>
+
+<!-- ── PANE: 8-WEEK TREND ── -->
+<div id="pane-trend" class="pane">
+  <p class="section-title">Escalation Rate Trend &mdash; by Region</p>
+  <p class="section-note">Dashed red = 10% reference level.</p>
+  <div class="cc-grid-1">
+    <div class="cc">
+      <div class="cc-title">Regional Escalation Rate (%) &mdash; 8 Weeks</div>
+      <div class="cc-sub">Americas (orange) &middot; EMEA (mint) &middot; APJ (lime) &middot; Global (white dashed)</div>
+      <div class="chart-wrap h260"><canvas id="chartTrend"></canvas></div>
+    </div>
+  </div>
+  <div class="cc-grid-1 mt16">
+    <div class="cc">
+      <div class="cc-title">Weekly Escalation Count (Stacked by Region)</div>
+      <div class="cc-sub">NA (orange) &middot; LATAM (purple) &middot; EMEA (mint) &middot; APJ (lime)</div>
+      <div class="chart-wrap h240"><canvas id="chartStackedCount"></canvas></div>
+    </div>
+  </div>
+  <div class="cc-grid-3 mt16">
+    <div class="cc">
+      <div class="cc-title">Regional Share (8w)</div>
+      <div class="cc-sub">Overall escalation split by region</div>
+      <div class="chart-wrap h220"><canvas id="chartRegionPie"></canvas></div>
+    </div>
+    <div class="cc">
+      <div class="cc-title">By Category (8w)</div>
+      <div class="cc-sub">Escalation category breakdown</div>
+      <div class="chart-wrap h220"><canvas id="chartCatPie"></canvas></div>
+    </div>
+    <div class="cc">
+      <div class="cc-title">Avg Resolution (days) by Category</div>
+      <div class="cc-sub" id="cat-resolved-note">—</div>
+      <div class="chart-wrap h220"><canvas id="chartResolution"></canvas></div>
+    </div>
+  </div>
+
+  <p class="section-title mt24">Top 5 Escalating Accounts &mdash; 8-Week Period</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>#</th><th>Account</th><th>Region</th><th>CSM</th><th>Escalations (8w)</th><th>% of Total</th></tr></thead>
+      <tbody id="top5-body"></tbody>
+    </table>
+  </div>
+
+  <div class="tbl-wrap mt24">
+    <table>
+      <thead><tr>
+        <th>Week</th>
+        <th>Americas Rate</th><th>Esc/Tot</th>
+        <th>EMEA Rate</th><th>Esc/Tot</th>
+        <th>APJ Rate</th><th>Esc/Tot</th>
+        <th>Global Rate</th><th>Esc/Tot</th>
+      </tr></thead>
+      <tbody id="trend-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── PANE: LAST WEEK ── -->
+<div id="pane-lastweek" class="pane">
+  <p class="section-title" id="lw-title">Last Week</p>
+  <p class="section-note" id="lw-note">—</p>
+  <div class="kpi-grid" id="lw-kpi-grid"></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th>Ticket</th><th>Organization</th><th>Region</th>
+        <th>Esc Type</th><th>Category</th><th>Priority</th>
+        <th>Status</th><th>Jira</th><th>CSM</th>
+      </tr></thead>
+      <tbody id="lw-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── PANE: CATEGORIES ── -->
+<div id="pane-categories" class="pane">
+  <p class="section-title">Escalation Category Overview</p>
+  <p class="section-note" id="cat-total-note">—</p>
+  <div class="cat-tile-row" id="cat-tiles"></div>
+
+  <div class="cc-grid">
+    <div class="cc">
+      <div class="cc-title" id="cat-dist-title">Escalation Category Distribution</div>
+      <div class="cc-sub">All escalations across 8 weeks</div>
+      <div class="chart-wrap h260"><canvas id="chartCatDist"></canvas></div>
+    </div>
+    <div class="cc">
+      <div class="cc-title" id="cat-share-title">Category Share</div>
+      <div class="cc-sub" id="cat-share-sub">—</div>
+      <div class="chart-wrap h260"><canvas id="chartCatShare"></canvas></div>
+    </div>
+  </div>
+
+  <p class="section-title mt24">Category Trend &mdash; Tickets per Week</p>
+  <div class="cc-grid-3">
+    <div class="cc">
+      <div class="cc-title">Strained Relationship</div>
+      <div class="cc-sub" id="cat-strained-note">—</div>
+      <div class="chart-wrap h200"><canvas id="chartStrainedTrend"></canvas></div>
+    </div>
+    <div class="cc">
+      <div class="cc-title">Product / Eng Delay</div>
+      <div class="cc-sub" id="cat-product-note">—</div>
+      <div class="chart-wrap h200"><canvas id="chartProductTrend"></canvas></div>
+    </div>
+    <div class="cc">
+      <div class="cc-title">Support Miss</div>
+      <div class="cc-sub" id="cat-support-note">—</div>
+      <div class="chart-wrap h200"><canvas id="chartSupportTrend"></canvas></div>
+    </div>
+  </div>
+
+  <p class="section-title mt24">Regional Distribution by Category</p>
+  <div class="cc-grid">
+    <div class="cc">
+      <div class="cc-title">Support &mdash; Regional Distribution</div>
+      <div class="cc-sub" id="supp-esc-note">—</div>
+      <div class="chart-wrap h260"><canvas id="chartSuppRegion"></canvas></div>
+    </div>
+    <div class="cc">
+      <div class="cc-title">Product &mdash; Regional Distribution</div>
+      <div class="cc-sub" id="prod-esc-note">—</div>
+      <div class="chart-wrap h260"><canvas id="chartProdRegion"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PANE: BACKLOG ── -->
+<div id="pane-backlog" class="pane">
+  <p class="section-title">Open Escalation Backlog</p>
+  <p class="section-note">Open + Pending tickets &middot; Sorted by Days Since Escalated &#8595;</p>
+  <div class="kpi-grid" id="backlog-kpi-grid"></div>
+
+  <div class="filter-row">
+    <span class="filter-label">Region</span>
+    <button class="fbtn active" data-filter-region="All">All</button>
+    <button class="fbtn" data-filter-region="Americas">Americas</button>
+    <button class="fbtn" data-filter-region="EMEA">EMEA</button>
+    <button class="fbtn" data-filter-region="APJ">APJ</button>
+    <div class="filter-divider"></div>
+    <span class="filter-label">CSM</span>
+    <div id="csm-filters" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+  </div>
+
+  <div style="font-size:11.5px;color:var(--muted);margin-bottom:10px;display:flex;gap:16px;flex-wrap:wrap">
+    <span id="backlog-count"></span>
+    <span><span class="legend-dot" style="background:#FFECEC;border:1px solid #FFAAAA"></span>&gt;90d since esc.</span>
+    <span><span class="legend-dot" style="background:#FFF8E1;border:1px solid #FFE082"></span>30&ndash;90d</span>
+    <span><span class="legend-dot" style="background:#fff;border:1px solid var(--border)"></span>&lt;30d</span>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th>#</th><th>Ticket</th><th>Organization</th><th>Region</th>
+        <th>Esc Type</th><th>Category</th><th>Sub-Category</th>
+        <th>Priority</th><th>Status</th>
+        <th>Days Open</th><th>Days Since Esc.</th>
+        <th>Jira</th><th>CSM</th>
+      </tr></thead>
+      <tbody id="backlog-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Loading overlay -->
+<div id="loading-overlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Loading escalation data&hellip;</div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
