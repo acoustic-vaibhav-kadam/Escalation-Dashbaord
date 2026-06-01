@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Weekly Global Escalation Trend — 1 Jun 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#1F1E5D;--purple:#706CFF;--lime:#C8FF49;--mint:#00DF8F;--orange:#FF8A65;--red:#FF4444;--surface:#F2F3F7;--muted:#5A5D77;--border:#D8D8E0;--white:#fff;--text:#1a1a2e}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--surface);color:var(--text);min-height:100vh}
+.hdr{background:linear-gradient(135deg,#1F1E5D 0%,#2E2B8A 60%,#1A1850 100%);padding:36px 48px 32px;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:-60px;right:-60px;width:320px;height:320px;background:radial-gradient(circle,rgba(112,108,255,.25) 0%,transparent 70%);pointer-events:none}
+.hdr-eyebrow{color:var(--lime);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.hdr-title{color:#fff;font-size:32px;font-weight:800;line-height:1.1}
+.hdr-sub{color:rgba(255,255,255,.65);font-size:14px;margin-top:6px}
+.hdr-logo{position:absolute;top:28px;right:48px;color:#fff;font-size:22px;font-weight:800}
+.hdr-logo span{color:var(--lime)}
+.hdr-meta{display:flex;gap:24px;margin-top:20px;flex-wrap:wrap}
+.hdr-meta-item{color:rgba(255,255,255,.7);font-size:12px}
+.hdr-meta-item strong{color:#fff;display:block;font-size:16px;font-weight:700}
+.tab-bar{background:var(--white);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;padding:0 48px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.tab{padding:14px 18px;font-size:13px;font-weight:600;color:var(--muted);border:none;background:none;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s}
+.tab.active{color:var(--purple);border-bottom-color:var(--purple)}
+.tab:hover{color:var(--purple)}
+.pane{display:none;padding:32px 48px 48px}
+.pane.active{display:block}
+.section-title{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:16px;padding-bottom:8px;border-bottom:3px solid var(--lime);display:inline-block}
+.section-note{font-size:12px;color:var(--muted);margin-bottom:20px;margin-top:-10px}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.kpi{background:var(--navy);color:#fff;padding:20px 22px;border-radius:12px;border-top:4px solid var(--purple);position:relative;overflow:hidden}
+.kpi.amer{border-top-color:var(--orange)}.kpi.emea{border-top-color:var(--mint)}.kpi.apj{border-top-color:var(--lime)}.kpi.glob{border-top-color:var(--purple)}.kpi.alert{border-top-color:var(--red)}
+.kpi-label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.65;margin-bottom:8px}
+.kpi-val{font-size:32px;font-weight:800;line-height:1}
+.kpi-sub{font-size:12px;opacity:.6;margin-top:4px}
+.kpi-badge{position:absolute;top:14px;right:14px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px}
+.kpi-badge.up{background:rgba(255,100,100,.2);color:#ff8888}.kpi-badge.dn{background:rgba(0,223,143,.2);color:var(--mint)}.kpi-badge.neu{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)}
+.cc-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+.cc-grid-1{display:grid;grid-template-columns:1fr;gap:20px;margin-bottom:24px}
+.cc-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:24px}
+.cc{background:var(--navy);border-radius:12px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.1);transition:transform .2s,box-shadow .2s}
+.cc:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.cc-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+.cc-sub{font-size:11px;color:rgba(255,255,255,.45);margin-bottom:16px}
+.chart-wrap{position:relative;width:100%}
+.chart-wrap.h200{height:200px}.chart-wrap.h220{height:220px}.chart-wrap.h240{height:240px}.chart-wrap.h260{height:260px}
+.cat-tile-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+.cat-tile{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+.cat-tile.t1{border-top:3px solid var(--purple)}.cat-tile.t2{border-top:3px solid var(--orange)}.cat-tile.t3{border-top:3px solid var(--mint)}
+.cat-tile-count{font-size:36px;font-weight:900;color:var(--navy)}
+.cat-tile-label{font-size:13px;color:var(--muted);margin-top:6px;font-weight:700}
+.cat-tile-pct{font-size:12px;color:var(--purple);margin-top:2px;font-weight:700}
+.region-row{display:flex;gap:16px;margin-bottom:24px}
+.region-card{flex:1;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 18px}
+.region-card.amer{border-left:4px solid var(--orange)}.region-card.emea{border-left:4px solid var(--mint)}.region-card.apj{border-left:4px solid var(--lime)}
+.r-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.r-rate{font-size:26px;font-weight:800;color:var(--navy)}
+.r-detail{font-size:12px;color:var(--muted);margin-top:4px}
+.obs-box{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:24px;margin-top:24px;border-left:4px solid var(--lime)}
+.obs-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:12px}
+.obs-item{font-size:13px;color:#444;line-height:1.6;padding:6px 0;border-bottom:1px solid #f0f0f0}
+.obs-item:last-child{border-bottom:none}
+.obs-item::before{content:"\2192 ";color:var(--purple);font-weight:700}
+.tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{background:var(--navy);color:#fff;font-weight:700;font-size:10.5px;letter-spacing:.8px;text-transform:uppercase;padding:10px 12px;text-align:left;white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+.row-r td{background:#FFECEC!important}.row-a td{background:#FFF8E1!important}
+.b{display:inline-block;padding:2px 7px;border-radius:20px;font-size:10px;font-weight:700;white-space:nowrap}
+.b-high{background:#FFECEC;color:#CC0000}.b-normal{background:#E8F5E9;color:#2E7D32}.b-low{background:#F3F4F6;color:#5A5D77}
+.b-open{background:rgba(112,108,255,.15);color:var(--purple)}.b-pending{background:#FFF8E1;color:#9A7000}.b-solved{background:#E8F5E9;color:#1B5E20}
+.b-hot{background:#FFECEC;color:#CC0000}.b-cesc{background:rgba(112,108,255,.15);color:var(--purple)}.b-both{background:#FFF0E0;color:#B85C00}
+.reg-pill{display:inline-block;padding:2px 7px;border-radius:12px;font-size:10px;font-weight:700}
+.reg-amer{background:rgba(255,138,101,.15);color:var(--orange)}.reg-emea{background:rgba(0,223,143,.15);color:#00995E}.reg-apj{background:rgba(200,255,73,.2);color:#6A8000}.reg-latam{background:rgba(112,108,255,.1);color:var(--purple)}
+.filter-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;align-items:center}
+.filter-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-right:4px}
+.fbtn{padding:5px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--white);color:var(--muted);font-size:11.5px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s}
+.fbtn.active{border-color:var(--purple);background:var(--purple);color:#fff}
+.fbtn:hover:not(.active){border-color:var(--purple);color:var(--purple)}
+.filter-divider{width:1px;height:24px;background:var(--border);margin:0 4px}
+a.zd{color:var(--purple);font-weight:700;text-decoration:none}
+a.zd:hover{text-decoration:underline}
+a.jl{color:var(--purple);text-decoration:none;font-weight:600;font-size:11px}
+a.jl:hover{text-decoration:underline}
+.mt16{margin-top:16px}.mt24{margin-top:24px}
+@media(max-width:900px){
+  .hdr{padding:24px 20px}.pane{padding:20px 16px}.tab-bar{padding:0 12px}
+  .kpi-grid,.cc-grid,.cc-grid-3{grid-template-columns:1fr 1fr}
+  .cat-tile-row{grid-template-columns:1fr 1fr}
+  .region-row{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-eyebrow">CSD Intelligence &middot; Support Escalation Report</div>
+  <div class="hdr-title">Weekly Global Escalation Trend</div>
+  <div class="hdr-sub">6 Apr &ndash; 31 May 2026 &nbsp;&middot;&nbsp; 8 Complete Weeks &nbsp;&middot;&nbsp; Zendesk Export 1 Jun 2026</div>
+  <div class="hdr-logo">Acoustic<span>.</span></div>
+  <div class="hdr-meta">
+    <div class="hdr-meta-item"><strong>5.7%</strong>Global Avg Rate</div>
+    <div class="hdr-meta-item"><strong>928</strong>Total Escalations (8w)</div>
+    <div class="hdr-meta-item"><strong>1,071</strong>Total Tickets (8w)</div>
+    <div class="hdr-meta-item"><strong>39</strong>Live Open Backlog</div>
+    <div class="hdr-meta-item"><strong>1 Jun 2026</strong>Generated</div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab active" data-tab="exec">Executive Summary</button>
+  <button class="tab" data-tab="trend">8-Week Trend</button>
+  <button class="tab" data-tab="lastweek">Last Week (25 May)</button>
+  <button class="tab" data-tab="categories">Categories</button>
+  <button class="tab" data-tab="backlog">Backlog &amp; Aging</button>
+</div>
+
+<!-- EXEC SUMMARY -->
+<div id="pane-exec" class="pane active">
+  <p class="section-title">Global KPI Summary</p>
+  <p class="section-note">8-week cumulative rates. Formula: hot_case &cup; client_esc. Region-tagged tickets only.</p>
+  <div class="kpi-grid">
+    <div class="kpi glob"><div class="kpi-label">Global Average</div><div class="kpi-val">5.7%</div><div class="kpi-sub">928 esc / 1,071 tickets</div><span class="kpi-badge neu">8W AVG</span></div>
+    <div class="kpi amer"><div class="kpi-label">Americas</div><div class="kpi-val">5.3%</div><div class="kpi-sub">35 esc / 665 tickets</div><span class="kpi-badge neu">NA + LATAM</span></div>
+    <div class="kpi emea"><div class="kpi-label">EMEA</div><div class="kpi-val">6.0%</div><div class="kpi-sub">19 esc / 317 tickets</div><span class="kpi-badge neu">8W AVG</span></div>
+    <div class="kpi apj"><div class="kpi-label">APJ</div><div class="kpi-val">7.9%</div><div class="kpi-sub">7 esc / 89 tickets</div><span class="kpi-badge neu">8W AVG</span></div>
+  </div>
+  <div class="cc-grid">
+    <div class="cc"><div class="cc-title">Global Escalation Rate &mdash; 8-Week Trend</div><div class="cc-sub">10% dashed = reference</div><div class="chart-wrap h220"><canvas id="chartGlobal"></canvas></div></div>
+    <div class="cc"><div class="cc-title">Escalation Type Distribution (8w)</div><div class="cc-sub">Hot Case Only &middot; Client Esc Only &middot; Both</div><div class="chart-wrap h220"><canvas id="chartTypeDist"></canvas></div></div>
+  </div>
+  <p class="section-title" style="margin-top:8px">Regional Breakdown</p>
+  <div class="region-row">
+    <div class="region-card amer"><div class="r-label">Americas (NA + LATAM)</div><div class="r-rate">5.3%</div><div class="r-detail">Peak: 9.5% (6 Apr)</div><div class="r-detail">Best: 2.4% (27 Apr)</div></div>
+    <div class="region-card emea"><div class="r-label">EMEA</div><div class="r-rate">6.0%</div><div class="r-detail">Peak: 15.6% (25 May)</div><div class="r-detail">Best: 2.0% (13 Apr)</div></div>
+    <div class="region-card apj"><div class="r-label">APJ</div><div class="r-rate">7.9%</div><div class="r-detail">Peak: 22.2% (13 Apr)</div><div class="r-detail">Best: 0.0% (6 Apr)</div></div>
+  </div>
+  <div class="obs-box">
+    <div class="obs-title">Key Observations</div>
+    <div class="obs-item">Global rate averaged 5.7% (928 esc / 1,071 tickets). Type split: 22% hot case only, 62% client esc only, 16% both.</div>
+    <div class="obs-item">Top category: <strong>Support</strong> (273, 29%). Top account: Igni S.A. de C.V. with 121 escalations.</div>
+    <div class="obs-item">EMEA peaked at 15.6% (25 May). APJ had 4 clean weeks. Americas peaked at 9.5% (6 Apr).</div>
+    <div class="obs-item">W8 (25 May): Global rate 10.2% &mdash; up vs W7 4.9%. Americas 6.5%, EMEA 15.6%, APJ 22.2%.</div>
+    <div class="obs-item">Open backlog: 39 tickets. Oldest escalation: 630d &mdash; Ticket #14081 (Product).</div>
+  </div>
+</div>
+
+<!-- 8-WEEK TREND -->
+<div id="pane-trend" class="pane">
+  <p class="section-title">Escalation Rate Trend &mdash; by Region</p>
+  <p class="section-note">Dashed red = 10% reference level.</p>
+  <div class="cc-grid-1">
+    <div class="cc"><div class="cc-title">Regional Escalation Rate (%) &mdash; 8 Weeks</div><div class="cc-sub">Americas (orange) &middot; EMEA (mint) &middot; APJ (lime) &middot; Global (white dashed)</div><div class="chart-wrap h260"><canvas id="chartTrend"></canvas></div></div>
+  </div>
+  <div class="cc-grid-1 mt16">
+    <div class="cc"><div class="cc-title">Weekly Escalation Count (Stacked by Region)</div><div class="cc-sub">NA (orange) &middot; LATAM (purple) &middot; EMEA (mint) &middot; APJ (lime)</div><div class="chart-wrap h240"><canvas id="chartStackedCount"></canvas></div></div>
+  </div>
+  <div class="cc-grid-3 mt16">
+    <div class="cc"><div class="cc-title">Regional Share (8w)</div><div class="cc-sub">Overall escalation split by region</div><div class="chart-wrap h220"><canvas id="chartRegionPie"></canvas></div></div>
+    <div class="cc"><div class="cc-title">By Category (8w)</div><div class="cc-sub">Escalation category breakdown</div><div class="chart-wrap h220"><canvas id="chartCatPie"></canvas></div></div>
+    <div class="cc"><div class="cc-title">Avg Resolution (days) by Category</div><div class="cc-sub">Closed escalations only &middot; 3 resolved this period</div><div class="chart-wrap h220"><canvas id="chartResolution"></canvas></div></div>
+  </div>
+  <p class="section-title mt24">Top 5 Escalating Accounts &mdash; 8-Week Period</p>
+  <div class="tbl-wrap">
+    <table><thead><tr><th>#</th><th>Account</th><th>Region</th><th>CSM</th><th>Escalations (8w)</th><th>% of Total</th></tr></thead>
+    <tbody id="top5-body"></tbody></table>
+  </div>
+  <div class="tbl-wrap mt24">
+    <table><thead><tr><th>Week</th><th>Americas Rate</th><th>Esc/Tot</th><th>EMEA Rate</th><th>Esc/Tot</th><th>APJ Rate</th><th>Esc/Tot</th><th>Global Rate</th><th>Esc/Tot</th></tr></thead>
+    <tbody id="trend-tbody"></tbody></table>
+  </div>
+</div>
+
+<!-- LAST WEEK -->
+<div id="pane-lastweek" class="pane">
+  <p class="section-title">Last Week &mdash; 25 May to 31 May 2026</p>
+  <p class="section-note">12 region-tagged escalations &middot; Global rate 10.2%</p>
+  <div class="kpi-grid">
+    <div class="kpi glob"><div class="kpi-label">W8 Global Rate</div><div class="kpi-val">10.2%</div><div class="kpi-sub">12/118 tickets</div><span class="kpi-badge up">&#8593; vs W7 4.9%</span></div>
+    <div class="kpi amer"><div class="kpi-label">W8 Americas</div><div class="kpi-val">6.5%</div><div class="kpi-sub">5/77 tickets</div><span class="kpi-badge up">&#8593; vs W7 6.3%</span></div>
+    <div class="kpi emea"><div class="kpi-label">W8 EMEA</div><div class="kpi-val">15.6%</div><div class="kpi-sub">5/32 tickets</div><span class="kpi-badge up">&#8593; vs W7 2.9%</span></div>
+    <div class="kpi apj"><div class="kpi-label">W8 APJ</div><div class="kpi-val">22.2%</div><div class="kpi-sub">2/9 tickets</div><span class="kpi-badge up">&#8593; vs W7 0.0%</span></div>
+  </div>
+  <div class="tbl-wrap">
+    <table><thead><tr><th>Ticket</th><th>Organization</th><th>Region</th><th>Esc Type</th><th>Category</th><th>Priority</th><th>Status</th><th>Jira</th><th>CSM</th></tr></thead>
+    <tbody id="lw-body"></tbody></table>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<div id="pane-categories" class="pane">
+  <p class="section-title">Escalation Category Overview</p>
+  <p class="section-note">928 total escalations across 8 weeks (includes unregioned tickets).</p>
+  <div class="cat-tile-row">
+    <div class="cat-tile t1"><div class="cat-tile-count">273</div><div class="cat-tile-label">Top Category</div><div style="font-size:15px;font-weight:800;color:var(--navy);margin-top:4px">Support</div><div class="cat-tile-pct">29% of all escalations</div></div>
+    <div class="cat-tile t2"><div class="cat-tile-count">241</div><div class="cat-tile-label">2nd Category</div><div style="font-size:15px;font-weight:800;color:var(--navy);margin-top:4px">Not Set</div><div class="cat-tile-pct">26% of all escalations</div></div>
+    <div class="cat-tile t3"><div class="cat-tile-count">223</div><div class="cat-tile-label">3rd Category</div><div style="font-size:15px;font-weight:800;color:var(--navy);margin-top:4px">Strained Relationship External Factors</div><div class="cat-tile-pct">24% of all escalations</div></div>
+
+  </div>
+  <div class="cc-grid">
+    <div class="cc"><div class="cc-title">Escalation Category Distribution (928 tickets)</div><div class="cc-sub">All escalations across 8 weeks</div><div class="chart-wrap h260"><canvas id="chartCatDist"></canvas></div></div>
+    <div class="cc"><div class="cc-title">Category Share</div><div class="cc-sub">Proportional breakdown &middot; 928 tickets</div><div class="chart-wrap h260"><canvas id="chartCatShare"></canvas></div></div>
+  </div>
+  <p class="section-title mt24">Category Trend &mdash; Tickets per Week</p>
+  <div class="cc-grid-3">
+    <div class="cc"><div class="cc-title">Strained Relationship</div><div class="cc-sub">Weekly escalation count &middot; 0 total</div><div class="chart-wrap h200"><canvas id="chartStrainedTrend"></canvas></div></div>
+    <div class="cc"><div class="cc-title">Product / Eng Delay</div><div class="cc-sub">Weekly escalation count &middot; 13 total</div><div class="chart-wrap h200"><canvas id="chartProductTrend"></canvas></div></div>
+    <div class="cc"><div class="cc-title">Support Miss</div><div class="cc-sub">Weekly escalation count &middot; 13 total</div><div class="chart-wrap h200"><canvas id="chartSupportTrend"></canvas></div></div>
+  </div>
+  <p class="section-title mt24">Regional Distribution by Category</p>
+  <div class="cc-grid">
+    <div class="cc"><div class="cc-title">Support &mdash; Regional Distribution</div><div class="cc-sub">273 support escalations by region</div><div class="chart-wrap h260"><canvas id="chartSuppRegion"></canvas></div></div>
+    <div class="cc"><div class="cc-title">Product &mdash; Regional Distribution</div><div class="cc-sub">106 product escalations by region</div><div class="chart-wrap h260"><canvas id="chartProdRegion"></canvas></div></div>
+  </div>
+</div>
+
+<!-- BACKLOG -->
+<div id="pane-backlog" class="pane">
+  <p class="section-title">Open Escalation Backlog</p>
+  <p class="section-note">Open + Pending tickets &middot; Sorted by Days Since Escalated &#8595;</p>
+  <div class="kpi-grid">
+    <div class="kpi glob"><div class="kpi-label">Open Escalations</div><div class="kpi-val">39</div><div class="kpi-sub">As of 1 Jun 2026</div></div>
+    <div class="kpi alert"><div class="kpi-label">Longest Escalated</div><div class="kpi-val">630d</div><div class="kpi-sub">#14081 &middot; *REDK INGENIERI… &middot; Product</div></div>
+    <div class="kpi amer"><div class="kpi-label">&gt;90d Since Esc.</div><div class="kpi-val" id="kpi-90d">&mdash;</div><div class="kpi-sub">Critical</div></div>
+    <div class="kpi emea"><div class="kpi-label">&gt;30d Since Esc.</div><div class="kpi-val" id="kpi-30d">&mdash;</div><div class="kpi-sub">Needs attention</div></div>
+  </div>
+  <div class="filter-row">
+    <span class="filter-label">Region</span>
+    <button class="fbtn active" data-filter-region="All">All</button>
+    <button class="fbtn" data-filter-region="Americas">Americas</button>
+    <button class="fbtn" data-filter-region="EMEA">EMEA</button>
+    <button class="fbtn" data-filter-region="APJ">APJ</button>
+    <div class="filter-divider"></div>
+    <span class="filter-label">CSM</span>
+    <div id="csm-filters" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+  </div>
+  <div style="font-size:11.5px;color:var(--muted);margin-bottom:10px;display:flex;gap:16px;flex-wrap:wrap">
+    <span id="backlog-count"></span>
+    <span><span style="display:inline-block;width:10px;height:10px;background:#FFECEC;border:1px solid #FFAAAA;border-radius:2px;margin-right:3px;vertical-align:middle"></span>&gt;90d since esc.</span>
+    <span><span style="display:inline-block;width:10px;height:10px;background:#FFF8E1;border:1px solid #FFE082;border-radius:2px;margin-right:3px;vertical-align:middle"></span>30&ndash;90d</span>
+    <span><span style="display:inline-block;width:10px;height:10px;background:#fff;border:1px solid var(--border);border-radius:2px;margin-right:3px;vertical-align:middle"></span>&lt;30d</span>
+  </div>
+  <div class="tbl-wrap">
+    <table><thead><tr><th>#</th><th>Ticket</th><th>Organization</th><th>Region</th><th>Esc Type</th><th>Category</th><th>Sub-Category</th><th>Priority</th><th>Status</th><th>Days Open</th><th>Days Since Esc.</th><th>Jira</th><th>CSM</th></tr></thead>
+    <tbody id="backlog-body"></tbody></table>
+  </div>
+</div>
+
+<script>
+// DATA — injected by build_report.py, do not edit manually
+const LABELS=["6 Apr", "13 Apr", "20 Apr", "27 Apr", "4 May", "11 May", "18 May", "25 May"];
+const NA_T=[63, 69, 71, 73, 70, 81, 65, 56],LATAM_T=[11, 16, 12, 10, 15, 18, 14, 21],EMEA_T=[35, 51, 36, 34, 39, 56, 34, 32],APJ_T=[10, 9, 16, 14, 11, 10, 10, 9];
+const AMER_T=[74, 85, 83, 83, 85, 99, 79, 77],GLOB_T=[119, 145, 135, 131, 135, 165, 123, 118];
+const NA_E=[4, 2, 3, 1, 3, 4, 5, 3],LATAM_E=[3, 1, 1, 1, 1, 1, 0, 2],EMEA_E=[1, 1, 2, 4, 1, 4, 1, 5],APJ_E=[0, 2, 2, 1, 0, 0, 0, 2];
+const AMER_E=[7, 3, 4, 2, 4, 5, 5, 5],GLOB_E=[8, 6, 8, 7, 5, 9, 6, 12];
+const AMER_R=[9.5, 3.5, 4.8, 2.4, 4.7, 5.1, 6.3, 6.5],EMEA_R=[2.9, 2.0, 5.6, 11.8, 2.6, 7.1, 2.9, 15.6],APJ_R=[0.0, 22.2, 12.5, 7.1, 0.0, 0.0, 0.0, 22.2];
+const GLOB_R=[6.7, 4.1, 5.9, 5.3, 3.7, 5.5, 4.9, 10.2];
+const TYPE_DIST=[204, 580, 144];
+const CAT_STRAINED=[0, 0, 0, 0, 0, 0, 0, 0];
+const CAT_PRODUCT=[1, 4, 1, 1, 2, 2, 0, 2];
+const CAT_SUPPORT=[2, 1, 2, 1, 1, 3, 0, 3];
+const CAT_LABELS=["Support", "Not Set", "Strained Relationship External Factors", "Product", "System Availability", "TechOps", "Service", "Provisioning"];
+const CAT_VALS=[273, 241, 223, 106, 42, 27, 11, 5];
+const CAT_TOTAL=928;
+const TOTAL_ESC=928;
+const SUPP_TOTAL=273;
+const PROD_TOTAL=106;
+const SUPP_REG={"EMEA": 64, "Americas": 164, "\u2014": 27, "APJ": 18};
+const PROD_REG={"EMEA": 33, "Americas": 47, "\u2014": 19, "APJ": 7};
+const RES_LABELS=[];
+const RES_VALS=[];
+const TOP5=[{"acc": "Igni S.A. de C.V.", "reg": "Americas", "csm": "Camila Galvez", "n": 121}, {"acc": "Acoustic", "reg": "\u2014", "csm": "\u2014", "n": 53}, {"acc": "\u2014", "reg": "\u2014", "csm": "\u2014", "n": 41}, {"acc": "RA Revenue Automation Inc.", "reg": "Americas", "csm": "Bill Pinho", "n": 30}, {"acc": "*Quintum SPA Chile*", "reg": "Americas", "csm": "Camila Galvez", "n": 21}];
+const W8_TICKETS=[{"id": 408003, "org": "Nexent Bank N.V. Amsterdam Sucursala Bucure\u0219ti", "reg": "EMEA", "esc": "Client Esc", "cat": "Not Set", "sub": "\u2014", "pri": "High", "st": "Pending", "jira": "CO-16294", "csm": "Ross Caddy", "esc_date": "2026-05-27", "created": "2026-05-20"}, {"id": 405034, "org": "Nexent Bank N.V. Amsterdam Sucursala Bucure\u0219ti", "reg": "EMEA", "esc": "Client Esc", "cat": "Product", "sub": "\u2014", "pri": "High", "st": "Pending", "jira": "CO-14819", "csm": "Ross Caddy", "esc_date": "2026-05-28", "created": "2026-03-06"}, {"id": 407537, "org": "\u2014", "reg": "\u2014", "esc": "Client Esc", "cat": "Support", "sub": "\u2014", "pri": "High", "st": "Open", "jira": "\u2014", "csm": "\u2014", "esc_date": "2026-05-28", "created": "2026-05-08"}, {"id": 407771, "org": "GFA World", "reg": "Americas", "esc": "Hot Case", "cat": "Product", "sub": "\u2014", "pri": "Normal", "st": "Open", "jira": "CO-16160", "csm": "Sydney King", "esc_date": "2026-05-26", "created": "2026-05-14"}, {"id": 407973, "org": "SMART BUSINESS SOLUTIONS S.A.", "reg": "Americas", "esc": "Client Esc", "cat": "Support", "sub": "\u2014", "pri": "High", "st": "Open", "jira": "CO-16256", "csm": "\u2014", "esc_date": "2026-05-28", "created": "2026-05-20"}, {"id": 408154, "org": "RA Revenue Automation Inc.", "reg": "Americas", "esc": "Client Esc", "cat": "Not Set", "sub": "\u2014", "pri": "High", "st": "Open", "jira": "CO-16252", "csm": "Bill Pinho", "esc_date": "2026-05-25", "created": "2026-05-25"}, {"id": 408162, "org": "Acoustic", "reg": "\u2014", "esc": "Hot Case", "cat": "Strained Relationship External Factors", "sub": "Escalted for Business urgency", "pri": "High", "st": "Solved", "jira": "\u2014", "csm": "\u2014", "esc_date": "2026-05-26", "created": "2026-05-26"}, {"id": 408175, "org": "Under Armour Europe B.V.", "reg": "EMEA", "esc": "Client Esc", "cat": "Strained Relationship External Factors", "sub": "Client Error", "pri": "High", "st": "Solved", "jira": "https://acoustic-jiraconf.atlassian.net/servicedesk/customer/portal/3/ASEC-408?created=true", "csm": "Ross Caddy", "esc_date": "2026-05-27", "created": "2026-05-26"}, {"id": 408207, "org": "CAMICO Mutual Insurance Company", "reg": "Americas", "esc": "Client Esc", "cat": "Support", "sub": "\u2014", "pri": "Normal", "st": "Pending", "jira": "\u2014", "csm": "Craig Smith", "esc_date": "2026-05-26", "created": "2026-05-27"}, {"id": 408219, "org": "Bank Hapoalim Ltd", "reg": "EMEA", "esc": "Client Esc", "cat": "Not Set", "sub": "\u2014", "pri": "High", "st": "Open", "jira": "CO-16287", "csm": "Ross Caddy", "esc_date": "2026-05-31", "created": "2026-05-27"}, {"id": 408268, "org": "*Air France KLM*", "reg": "EMEA", "esc": "Client Esc", "cat": "Strained Relationship External Factors", "sub": "Escalted for Business urgency", "pri": "Normal", "st": "Open", "jira": "CO-16329", "csm": "\u2014", "esc_date": "2026-05-29", "created": "2026-05-28"}, {"id": 408295, "org": "CATHAY PACIFIC AIRWAYS LTD", "reg": "APJ", "esc": "Client Esc", "cat": "Support", "sub": "\u2014", "pri": "High", "st": "Pending", "jira": "\u2014", "csm": "Kaori Sayers", "esc_date": "2026-05-29", "created": "2026-05-28"}, {"id": 408319, "org": "*Quintum SPA Chile*", "reg": "Americas", "esc": "Client Esc", "cat": "Not Set", "sub": "\u2014", "pri": "High", "st": "Open", "jira": "CO-16343", "csm": "Camila Galvez", "esc_date": "2026-05-30", "created": "2026-05-29"}, {"id": 408334, "org": "CATHAY PACIFIC AIRWAYS LTD", "reg": "APJ", "esc": "Client Esc", "cat": "Not Set", "sub": "\u2014", "pri": "Normal", "st": "Solved", "jira": "CO-16326", "csm": "Kaori Sayers", "esc_date": "2026-05-29", "created": "2026-05-29"}];
+const BACKLOG=[{"id": 14081, "org": "*REDK INGENIERIA DEL SOFTWARE SL*", "reg": "EMEA", "esc": "Client Esc", "cat": "Product", "sub": "\u2014", "pri": "High", "st": "Open", "days_open": 753, "days_esc": 630, "jira": "CA-67696", "csm": "Ross Caddy"}, {"id": 14160, "org": "PROJECT MANAGEMENT INSTITUTE INC", "reg": "Americas", "esc": "Client Esc", "cat": "Not Set", "sub": "\u2014", "pri": "High", "st": "Pending", "days_open": 646, "days_esc": 614, "jira": "CA-67696", "csm": "Jamie Martin"}, {"id": 383733, "org": "MENARD INC.", "reg": "Americas", "esc": "Client Esc", "cat": "Strained Relationship External Factors", "sub": "Escalted for Visibility / Lack of Trust", "pri": "Normal", "st": "Pending", "days_open": 305, "days_esc": 290, "jira": "\u2014", "csm": "Yonahtan Pimentel"}, {"id": 385088, "org": "*Isoskele*", "reg": "EMEA", "esc": "Client Esc", "cat": "Product", "sub": "\u2014", "pri": "Low", "st": "Open", "days_open": 292, "days_esc": 248, "jira": "CA-125741, CA-131254, CO-11062", "csm": "\u2014"}, {"id": 395839, "org": "Blue Cross and Blue Shield of North Carolina (BCBS/NC)", "reg": "Americas", "esc": "Client Esc", "cat": "Product", "sub": "\u2014", "pri": "Normal", "st": "Open", "days_open": 201, "days_esc": 139, "jira": "CA-114524, CA-123134, CO-12759", "csm": "Bill Pinho"}, {"id": 399360, "org": "Nexent Bank N.V. Amsterdam Sucursala Bucure\u0219ti", "reg": "EMEA", "esc": "Client Esc", "cat": "Product", "sub": "\u2014", "pri": "High", "st": "Open", "days_open": 170, "days_esc": 136, "jira": "CA-128118, CO-13768", "csm": "Ross Caddy"}, {"id": 399487, "org": "WWWORLD MEDIA INC.", "reg": "Americas", "esc": "Client Esc", "cat": "Not Set", "sub": "\u2014", "pri": "Normal", "st": "Pending", "days_open": 167, "days_esc": 132, "jira": "\u2014", "csm": "\u2014"}, {"id": 398024, "org": "Rapp Ltd t/a Code Worldwide", "reg": "EMEA", "esc": "Both", "cat": "Product", "sub": "\u2014", "pri": "Normal", "st": "Open", "days_open": 181, "days_esc": 130, "jira": "CA-133597, CO-13269", "csm": "Ross Caddy"}, {"id": 402974, "org": "Sterling Valley Systems, Inc. d/b/a Inntopia", "reg": "Americas", "esc": "Client Esc", "cat": "Service", "sub": "\u2014", "pri": "High", "st": "Pending", "days_open": 129, "days_esc": 129, "jira": "CO-13859", "csm": "Bill Pinho"}, {"id": 398935, "org": "First Service Credit Union", "reg": "Americas", "esc": "Hot Case", "cat": "Strained Relationship External Factors", "sub": "Escalted for Business urgency", "pri": "High", "st": "Open", "days_open": 173, "days_esc": 118, "jira": "CA-8021, CO-15971", "csm": "Nicole Tirella"}, {"id": 404465, "org": "Acoustic", "reg": "\u2014", "esc": "Client Esc", "cat": "Support", "sub": "\u2014", "pri": "Normal", "st": "Open", "days_open": 97, "days_esc": 97, "jira": "CO-14530", "csm": "\u2014"}, {"id": 404296, "org": "SMART BUSINESS SOLUTIONS S.A.", "reg": "Americas", "esc": "Both", "cat": "TechOps", "sub": "\u2014", "pri": "High", "st": "Open", "days_open": 101, "days_esc": 91, "jira": "CA-138470, CO-14426, CO-14547", "csm": "\u2014"}, {"id": 405537, "org": "Igni S.A. de C.V.", "reg": "Americas", "esc": "Client Esc", "cat": "Support", "sub": "\u2014", "pri": "High", "st": "Open", "days_open": 74, "days_esc": 74, "jira": "CO-15013", "csm": "Camila Lobos"}, {"id": 404103, "org": "Capital Sports & Entertainment Inc", "reg": "Americas", "esc": "Client Esc", "cat": "TechOps", "sub": "\u2014", "pri": "High", "st": "Open", "days_open": 104, "days_esc": 69, "jira": "CA-133157, CA-144684, CO-14339, CO-15895", "csm": "Craig Smith"}, {"id": 405656, "org": "*Quintum SPA Chile*", "reg": "Americas", "esc": "Client Esc", "cat": "Product", "sub": "\u2014", "pri": "High", "st": "Open", "days_open": 73, "days_esc": 68, "jira": "CA-131254, CO-15036", "csm": "Camila Galvez"}, {"id": 406134, "org": "Igni S.A. de C.V.", "reg": "Americas", "esc": "Client Esc", "cat": "Support", "sub": "\u2014", "pri": "High", "st": "Pending", "days_open": 60, "days_esc": 60, "jira": "CO-15461", "csm": "Camila Lobos"}, {"id": 368278, "org": "InMoment, Inc.", "reg": "Americas", "esc": "Client Esc", "cat": "Product", "sub": "\u2014", "pri": "Normal", "st": "Open", "days_open": 446, "days_esc": 55, "jira": "CA-91962, CA-93048, CO-7250", "csm": "Bill Pinho"}, {"id": 406337, "org": "Aetna - Resources For Living", "reg": "Americas", "esc": "Hot Case", "cat": "Strained Relationship External Factors", "sub": "Escalted for Business urgency", "pri": "High", "st": "Pending", "days_open": 54, "days_esc": 54, "jira": "CO-15347, CO-16048, CO-16076", "csm": "Sydney King"}, {"id": 404891, "org": "Yorkshire Building Society", "reg": "EMEA", "esc": "Hot Case", "cat": "Support", "sub": "\u2014", "pri": "Low", "st": "Open", "days_open": 89, "days_esc": 53, "jira": "CA-144320, CO-14794", "csm": "Ross Caddy"}, {"id": 406686, "org": "Acoustic", "reg": "\u2014", "esc": "Hot Case", "cat": "Product", "sub": "\u2014", "pri": "Normal", "st": "Open", "days_open": 46, "days_esc": 42, "jira": "CA-138706, CO-15514", "csm": "\u2014"}, {"id": 404687, "org": "Archisage Pty Ltd", "reg": "APJ", "esc": "Hot Case", "cat": "TechOps", "sub": "\u2014", "pri": "High", "st": "Open", "days_open": 94, "days_esc": 41, "jira": "CO-15551", "csm": "Kaori Sayers"}, {"id": 407547, "org": "Nexent Bank N.V. Amsterdam Sucursala Bucure\u0219ti", "reg": "EMEA", "esc": "Both", "cat": "Support", "sub": "\u2014", "pri": "High", "st": "Open", "days_open": 24, "days_esc": 20, "jira": "CO-15990", "csm": "Ross Caddy"}, {"id": 407629, "org": "RA Revenue Automation Inc.", "reg": "Americas", "esc": "Client Esc", "cat": "Support", "sub": "\u2014", "pri": "High", "st": "Pending", "days_open": 20, "days_esc": 19, "jira": "\u2014", "csm": "Bill Pinho"}, {"id": 407639, "org": "Advisory Insurance Brokers Limited", "reg": "EMEA", "esc": "Hot Case", "cat": "TechOps", "sub": "\u2014", "pri": "High", "st": "Open", "days_open": 20, "days_esc": 18, "jira": "CA-145289, CA-145504, CA-146002, CO-15991", "csm": "Ross Caddy"}, {"id": 406357, "org": "Nelnet, Inc.", "reg": "Americas", "esc": "Hot Case", "cat": "Product", "sub": "\u2014", "pri": "High", "st": "Pending", "days_open": 54, "days_esc": 17, "jira": "CA-138480, CO-15373", "csm": "Yonahtan Pimentel"}, {"id": 407865, "org": "Abu Dhabi Islamic Bank", "reg": "EMEA", "esc": "Client Esc", "cat": "Strained Relationship External Factors", "sub": "Escalted for Business urgency", "pri": "Normal", "st": "Pending", "days_open": 15, "days_esc": 15, "jira": "\u2014", "csm": "Ross Caddy"}, {"id": 407151, "org": "ALMACENES EXITO S.A.", "reg": "\u2014", "esc": "Client Esc", "cat": "Not Set", "sub": "\u2014", "pri": "High", "st": "Pending", "days_open": 33, "days_esc": 13, "jira": "\u2014", "csm": "\u2014"}, {"id": 407801, "org": "RA Revenue Automation Inc.", "reg": "Americas", "esc": "Client Esc", "cat": "Not Set", "sub": "\u2014", "pri": "Normal", "st": "Pending", "days_open": 17, "days_esc": 13, "jira": "\u2014", "csm": "Bill Pinho"}, {"id": 408154, "org": "RA Revenue Automation Inc.", "reg": "Americas", "esc": "Client Esc", "cat": "Not Set", "sub": "\u2014", "pri": "High", "st": "Open", "days_open": 7, "days_esc": 7, "jira": "CO-16252", "csm": "Bill Pinho"}, {"id": 407771, "org": "GFA World", "reg": "Americas", "esc": "Hot Case", "cat": "Product", "sub": "\u2014", "pri": "Normal", "st": "Open", "days_open": 18, "days_esc": 6, "jira": "CO-16160", "csm": "Sydney King"}, {"id": 408207, "org": "CAMICO Mutual Insurance Company", "reg": "Americas", "esc": "Client Esc", "cat": "Support", "sub": "\u2014", "pri": "Normal", "st": "Pending", "days_open": 5, "days_esc": 6, "jira": "\u2014", "csm": "Craig Smith"}, {"id": 408003, "org": "Nexent Bank N.V. Amsterdam Sucursala Bucure\u0219ti", "reg": "EMEA", "esc": "Client Esc", "cat": "Not Set", "sub": "\u2014", "pri": "High", "st": "Pending", "days_open": 12, "days_esc": 5, "jira": "CO-16294", "csm": "Ross Caddy"}, {"id": 405034, "org": "Nexent Bank N.V. Amsterdam Sucursala Bucure\u0219ti", "reg": "EMEA", "esc": "Client Esc", "cat": "Product", "sub": "\u2014", "pri": "High", "st": "Pending", "days_open": 87, "days_esc": 4, "jira": "CO-14819", "csm": "Ross Caddy"}, {"id": 407537, "org": "\u2014", "reg": "\u2014", "esc": "Client Esc", "cat": "Support", "sub": "\u2014", "pri": "High", "st": "Open", "days_open": 24, "days_esc": 4, "jira": "\u2014", "csm": "\u2014"}, {"id": 407973, "org": "SMART BUSINESS SOLUTIONS S.A.", "reg": "Americas", "esc": "Client Esc", "cat": "Support", "sub": "\u2014", "pri": "High", "st": "Open", "days_open": 12, "days_esc": 4, "jira": "CO-16256", "csm": "\u2014"}, {"id": 408268, "org": "*Air France KLM*", "reg": "EMEA", "esc": "Client Esc", "cat": "Strained Relationship External Factors", "sub": "Escalted for Business urgency", "pri": "Normal", "st": "Open", "days_open": 4, "days_esc": 3, "jira": "CO-16329", "csm": "\u2014"}, {"id": 408295, "org": "CATHAY PACIFIC AIRWAYS LTD", "reg": "APJ", "esc": "Client Esc", "cat": "Support", "sub": "\u2014", "pri": "High", "st": "Pending", "days_open": 4, "days_esc": 3, "jira": "\u2014", "csm": "Kaori Sayers"}, {"id": 408319, "org": "*Quintum SPA Chile*", "reg": "Americas", "esc": "Client Esc", "cat": "Not Set", "sub": "\u2014", "pri": "High", "st": "Open", "days_open": 3, "days_esc": 2, "jira": "CO-16343", "csm": "Camila Galvez"}, {"id": 408219, "org": "Bank Hapoalim Ltd", "reg": "EMEA", "esc": "Client Esc", "cat": "Not Set", "sub": "\u2014", "pri": "High", "st": "Open", "days_open": 5, "days_esc": 1, "jira": "CO-16287", "csm": "Ross Caddy"}];
+
+var gC='rgba(255,255,255,.08)',tC='rgba(255,255,255,.65)',axF={family:"'Plus Jakarta Sans',sans-serif",size:11};
+function THRESH(){return {label:'10% Reference',data:Array(8).fill(10),borderColor:'#FF4444',borderWidth:1.5,borderDash:[7,3],pointRadius:0,fill:false,tension:0,order:0};}
+var CAT_PAL=['#706CFF','#FF8A65','#00DF8F','#D0D1D8','#FFB74D','#FF4444','#64B5F6'];
+var REG_PAL=['#FF8A65','#706CFF','#00DF8F','#C8FF49'];
+
+var lazy={};
+function showTab(id){
+  document.querySelectorAll('.tab').forEach(function(b){b.classList.remove('active');});
+  document.querySelectorAll('.pane').forEach(function(p){p.classList.remove('active');});
+  var btn=document.querySelector('.tab[data-tab="'+id+'"]');if(btn)btn.classList.add('active');
+  var pane=document.getElementById('pane-'+id);if(pane)pane.classList.add('active');
+  if(lazy[id]){lazy[id]();delete lazy[id];}
+}
+document.querySelectorAll('.tab').forEach(function(btn){btn.addEventListener('click',function(){showTab(btn.dataset.tab);});});
+
+function escB(t){return t==='Both'?'<span class="b b-both">Both</span>':t==='Hot Case'?'<span class="b b-hot">Hot Case</span>':'<span class="b b-cesc">Client Esc</span>';}
+function priB(p){return p==='High'?'<span class="b b-high">High</span>':p==='Low'?'<span class="b b-low">Low</span>':'<span class="b b-normal">Normal</span>';}
+function stB(s){return s==='Open'?'<span class="b b-open">Open</span>':s==='Solved'?'<span class="b b-solved">Solved</span>':'<span class="b b-pending">Pending</span>';}
+function rC(d){return d>=90?'row-r':d>=30?'row-a':'';}
+function regP(r){return r==='EMEA'?'<span class="reg-pill reg-emea">EMEA</span>':r==='APJ'?'<span class="reg-pill reg-apj">APJ</span>':r==='LATAM'?'<span class="reg-pill reg-latam">LATAM</span>':'<span class="reg-pill reg-amer">Americas</span>';}
+function jlnk(j){if(!j||j==='—')return '—';var m=j.match(/([A-Z]+-\d+)/);if(m)return '<a class="jl" href="https://acoustic-jiraconf.atlassian.net/browse/'+m[1]+'" target="_blank">'+j+'</a>';return j;}
+function zdlnk(id){return '<a class="zd" href="https://acousticmkt.zendesk.com/agent/tickets/'+id+'" target="_blank">#'+id+'</a>';}
+
+(function(){
+  var tb=document.getElementById('trend-tbody');
+  for(var i=0;i<8;i++){
+    tb.innerHTML+='<tr><td style="font-weight:700">'+LABELS[i]+'</td>'
+      +'<td>'+AMER_R[i]+'%</td><td>'+AMER_E[i]+'/'+AMER_T[i]+'</td>'
+      +'<td>'+EMEA_R[i]+'%</td><td>'+EMEA_E[i]+'/'+EMEA_T[i]+'</td>'
+      +'<td>'+APJ_R[i]+'%</td><td>'+APJ_E[i]+'/'+APJ_T[i]+'</td>'
+      +'<td style="font-weight:700">'+GLOB_R[i]+'%</td><td>'+GLOB_E[i]+'/'+GLOB_T[i]+'</td></tr>';
+  }
+  var aE=AMER_E.reduce(function(a,b){return a+b;},0),aT=AMER_T.reduce(function(a,b){return a+b;},0);
+  var eE=EMEA_E.reduce(function(a,b){return a+b;},0),eT=EMEA_T.reduce(function(a,b){return a+b;},0);
+  var pE=APJ_E.reduce(function(a,b){return a+b;},0),pT=APJ_T.reduce(function(a,b){return a+b;},0);
+  var gE=GLOB_E.reduce(function(a,b){return a+b;},0),gT=GLOB_T.reduce(function(a,b){return a+b;},0);
+  tb.innerHTML+='<tr style="background:var(--navy);color:#fff">'
+    +'<td style="font-weight:800">8W AVG</td>'
+    +'<td style="font-weight:800">'+(aE/aT*100).toFixed(1)+'%</td><td style="font-weight:700">'+aE+'/'+aT+'</td>'
+    +'<td style="font-weight:800">'+(eE/eT*100).toFixed(1)+'%</td><td style="font-weight:700">'+eE+'/'+eT+'</td>'
+    +'<td style="font-weight:800">'+(pE/pT*100).toFixed(1)+'%</td><td style="font-weight:700">'+pE+'/'+pT+'</td>'
+    +'<td style="font-weight:800">'+(gE/gT*100).toFixed(1)+'%</td><td style="font-weight:700">'+gE+'/'+gT+'</td></tr>';
+})();
+
+(function(){
+  var tb=document.getElementById('top5-body');
+  TOP5.forEach(function(a,i){
+    tb.innerHTML+='<tr><td style="font-weight:800">'+(i+1)+'</td><td><strong>'+a.acc+'</strong></td><td>'+regP(a.reg)+'</td>'
+      +'<td style="font-size:12px">'+a.csm+'</td><td style="text-align:center;font-weight:800;font-size:16px">'+a.n+'</td>'
+      +'<td style="font-weight:700">'+Math.round(a.n/TOTAL_ESC*100)+'%</td></tr>';
+  });
+})();
+
+(function(){
+  var tb=document.getElementById('lw-body');
+  W8_TICKETS.forEach(function(t){
+    tb.innerHTML+='<tr><td>'+zdlnk(t.id)+'</td><td><strong>'+t.org+'</strong></td><td>'+regP(t.reg)+'</td>'
+      +'<td>'+escB(t.esc)+'</td><td>'+t.cat+'</td><td>'+priB(t.pri)+'</td><td>'+stB(t.st)+'</td>'
+      +'<td>'+jlnk(t.jira)+'</td><td style="font-size:12px">'+t.csm+'</td></tr>';
+  });
+})();
+
+var activeRegion='All',activeCSM='All';
+function buildCSMFilters(){
+  var csms=['All'];
+  BACKLOG.forEach(function(t){if(t.csm&&t.csm!=='—'&&csms.indexOf(t.csm)<0)csms.push(t.csm);});
+  csms.sort(function(a,b){return a==='All'?-1:b==='All'?1:a.localeCompare(b);});
+  var wrap=document.getElementById('csm-filters');
+  csms.forEach(function(c){
+    var btn=document.createElement('button');btn.className='fbtn'+(c==='All'?' active':'');
+    btn.textContent=c;btn.dataset.filterCsm=c;
+    btn.addEventListener('click',function(){
+      document.querySelectorAll('[data-filter-csm]').forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active');activeCSM=c;renderBacklog();
+    });
+    wrap.appendChild(btn);
+  });
+}
+function renderBacklog(){
+  var filtered=BACKLOG.filter(function(t){return(activeRegion==='All'||t.reg===activeRegion)&&(activeCSM==='All'||t.csm===activeCSM);});
+  var tb=document.getElementById('backlog-body');tb.innerHTML='';
+  var c90=0,c30=0,n=0;
+  filtered.forEach(function(t){
+    n++;if(t.days_esc>=90)c90++;else if(t.days_esc>=30)c30++;
+    tb.innerHTML+='<tr class="'+rC(t.days_esc)+'">'
+      +'<td>'+n+'</td><td>'+zdlnk(t.id)+'</td><td style="max-width:180px"><strong>'+t.org+'</strong></td>'
+      +'<td>'+regP(t.reg)+'</td><td>'+escB(t.esc)+'</td><td style="font-size:12px">'+t.cat+'</td>'
+      +'<td style="font-size:11px;max-width:150px">'+t.sub+'</td><td>'+priB(t.pri)+'</td><td>'+stB(t.st)+'</td>'
+      +'<td style="text-align:center">'+t.days_open+'</td>'
+      +'<td style="text-align:center;font-weight:800;color:'+(t.days_esc>=90?'#CC0000':t.days_esc>=30?'#9A7000':'inherit')+'">'+t.days_esc+'</td>'
+      +'<td>'+jlnk(t.jira)+'</td><td style="font-size:12px">'+t.csm+'</td></tr>';
+  });
+  document.getElementById('kpi-90d').textContent=c90;
+  document.getElementById('kpi-30d').textContent=c30;
+  document.getElementById('backlog-count').textContent='Showing '+n+' of '+BACKLOG.length+' tickets';
+}
+buildCSMFilters();
+document.querySelectorAll('[data-filter-region]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('[data-filter-region]').forEach(function(b){b.classList.remove('active');});
+    btn.classList.add('active');activeRegion=btn.dataset.filterRegion;renderBacklog();
+  });
+});
+renderBacklog();
+
+function dOpts(){return {responsive:true,maintainAspectRatio:false,scales:{y:{min:0,ticks:{color:tC,font:axF,callback:function(v){return v+'%';}},grid:{color:gC}},x:{ticks:{color:tC,font:axF},grid:{display:false}}},plugins:{legend:{position:'top',labels:{color:'rgba(255,255,255,.85)',font:axF,boxWidth:11,padding:12}},tooltip:{backgroundColor:'rgba(0,0,0,.85)'}}};}
+function dPie(total){return {responsive:true,maintainAspectRatio:false,cutout:'0%',plugins:{legend:{position:'bottom',labels:{color:'rgba(255,255,255,.85)',font:{family:"'Plus Jakarta Sans',sans-serif",size:10},boxWidth:10,padding:8}},tooltip:{backgroundColor:'rgba(0,0,0,.85)',callbacks:{label:function(c){return ' '+c.label+': '+c.parsed+' ('+Math.round(c.parsed/total*100)+'%)';}}}}};}
+
+new Chart(document.getElementById('chartGlobal'),{type:'line',data:{labels:LABELS,datasets:[{label:'Global %',data:GLOB_R,borderColor:'#C8FF49',backgroundColor:'rgba(200,255,73,.1)',borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#C8FF49',pointBorderColor:'rgba(255,255,255,.3)',pointBorderWidth:2,tension:.35,fill:true},THRESH()]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{min:0,ticks:{color:tC,font:axF,callback:function(v){return v+'%';}},grid:{color:gC}},x:{ticks:{color:tC,font:axF},grid:{display:false}}},plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(0,0,0,.85)'}}}});
+new Chart(document.getElementById('chartTypeDist'),{type:'doughnut',data:{labels:['Hot Case Only','Client Esc Only','Both'],datasets:[{data:TYPE_DIST,backgroundColor:['#FF4444','#706CFF','#FF8A65'],borderWidth:3,borderColor:'#1F1E5D'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'bottom',labels:{color:'rgba(255,255,255,.85)',font:axF,boxWidth:11,padding:10}},tooltip:{backgroundColor:'rgba(0,0,0,.85)',callbacks:{label:function(c){return ' '+c.label+': '+c.parsed+' ('+Math.round(c.parsed/TOTAL_ESC*100)+'%)';}}}}}});
+
+lazy['trend']=function(){
+  new Chart(document.getElementById('chartTrend'),{type:'line',data:{labels:LABELS,datasets:[{label:'Americas',data:AMER_R,borderColor:'#FF8A65',fill:false,tension:.35,pointRadius:5,borderWidth:2.5,pointBackgroundColor:'#FF8A65',pointBorderColor:'rgba(255,255,255,.3)',pointBorderWidth:2},{label:'EMEA',data:EMEA_R,borderColor:'#00DF8F',fill:false,tension:.35,pointRadius:5,borderWidth:2.5,pointBackgroundColor:'#00DF8F',pointBorderColor:'rgba(255,255,255,.3)',pointBorderWidth:2},{label:'APJ',data:APJ_R,borderColor:'#C8FF49',fill:false,tension:.35,pointRadius:5,borderWidth:2.5,pointBackgroundColor:'#C8FF49',pointBorderColor:'rgba(255,255,255,.3)',pointBorderWidth:2},{label:'Global',data:GLOB_R,borderColor:'rgba(255,255,255,.5)',fill:false,tension:.35,borderDash:[4,2],borderWidth:2,pointRadius:3},THRESH()]},options:dOpts()});
+  new Chart(document.getElementById('chartStackedCount'),{type:'bar',data:{labels:LABELS,datasets:[{label:'NA',data:NA_E,backgroundColor:'#FF8A65',borderRadius:3,stack:'s'},{label:'LATAM',data:LATAM_E,backgroundColor:'#706CFF',borderRadius:3,stack:'s'},{label:'EMEA',data:EMEA_E,backgroundColor:'#00DF8F',borderRadius:3,stack:'s'},{label:'APJ',data:APJ_E,backgroundColor:'#C8FF49',borderRadius:3,stack:'s'}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{stacked:true,ticks:{color:tC,font:axF},grid:{color:gC},title:{display:true,text:'Escalations',color:tC,font:axF}},x:{stacked:true,ticks:{color:tC,font:axF},grid:{display:false}}},plugins:{legend:{position:'top',labels:{color:'rgba(255,255,255,.85)',font:axF,boxWidth:11,padding:12}},tooltip:{backgroundColor:'rgba(0,0,0,.85)'}}}});
+  var naSum=NA_E.reduce(function(a,b){return a+b;},0),latSum=LATAM_E.reduce(function(a,b){return a+b;},0),emSum=EMEA_E.reduce(function(a,b){return a+b;},0),apSum=APJ_E.reduce(function(a,b){return a+b;},0);
+  new Chart(document.getElementById('chartRegionPie'),{type:'pie',data:{labels:['Americas (NA)','Americas (LATAM)','EMEA','APJ'],datasets:[{data:[naSum,latSum,emSum,apSum],backgroundColor:['#FF8A65','#706CFF','#00DF8F','#C8FF49'],borderWidth:3,borderColor:'#1F1E5D'}]},options:dPie(TOTAL_ESC)});
+  new Chart(document.getElementById('chartCatPie'),{type:'pie',data:{labels:CAT_LABELS,datasets:[{data:CAT_VALS,backgroundColor:CAT_PAL,borderWidth:3,borderColor:'#1F1E5D'}]},options:dPie(CAT_TOTAL)});
+  new Chart(document.getElementById('chartResolution'),{type:'bar',data:{labels:RES_LABELS,datasets:[{label:'Avg Days',data:RES_VALS,backgroundColor:['#D0D1D8','#706CFF','#00DF8F','#FF8A65','#FFB74D','#C8FF49','#FF4444'],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{ticks:{color:tC,font:axF,callback:function(v){return v+'d';}},grid:{color:gC},title:{display:true,text:'Avg Days to Close',color:tC,font:axF}},x:{ticks:{color:tC,font:{family:"'Plus Jakarta Sans',sans-serif",size:10}},grid:{display:false}}},plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(0,0,0,.85)',callbacks:{label:function(c){return ' '+c.parsed.toFixed(1)+' days avg';}}}}}});
+};
+
+lazy['categories']=function(){
+  function catTrendOpts(){return {responsive:true,maintainAspectRatio:false,scales:{y:{min:0,max:6,ticks:{color:tC,font:axF,stepSize:1},grid:{color:gC}},x:{ticks:{color:tC,font:{family:"'Plus Jakarta Sans',sans-serif",size:10}},grid:{display:false}}},plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(0,0,0,.85)'}}};}
+  new Chart(document.getElementById('chartCatDist'),{type:'bar',data:{labels:CAT_LABELS,datasets:[{label:'Escalations',data:CAT_VALS,backgroundColor:CAT_PAL,borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{ticks:{color:tC,font:axF},grid:{color:gC}},x:{ticks:{color:tC,font:axF},grid:{display:false}}},plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(0,0,0,.85)'}}}});
+  new Chart(document.getElementById('chartCatShare'),{type:'doughnut',data:{labels:CAT_LABELS,datasets:[{data:CAT_VALS,backgroundColor:CAT_PAL,borderWidth:3,borderColor:'#1F1E5D'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'58%',plugins:{legend:{position:'right',labels:{color:'rgba(255,255,255,.85)',font:{family:"'Plus Jakarta Sans',sans-serif",size:11},boxWidth:11,padding:10}},tooltip:{backgroundColor:'rgba(0,0,0,.85)',callbacks:{label:function(c){return ' '+c.label+': '+c.parsed+' ('+Math.round(c.parsed/CAT_TOTAL*100)+'%)';}}}}}});
+  new Chart(document.getElementById('chartStrainedTrend'),{type:'bar',data:{labels:LABELS,datasets:[{label:'Strained Rel.',data:CAT_STRAINED,backgroundColor:'#706CFF',borderRadius:4}]},options:catTrendOpts()});
+  new Chart(document.getElementById('chartProductTrend'),{type:'bar',data:{labels:LABELS,datasets:[{label:'Product',data:CAT_PRODUCT,backgroundColor:'#FF8A65',borderRadius:4}]},options:catTrendOpts()});
+  new Chart(document.getElementById('chartSupportTrend'),{type:'bar',data:{labels:LABELS,datasets:[{label:'Support',data:CAT_SUPPORT,backgroundColor:'#00DF8F',borderRadius:4}]},options:catTrendOpts()});
+  new Chart(document.getElementById('chartSuppRegion'),{type:'doughnut',data:{labels:['Americas','EMEA','APJ','LATAM'],datasets:[{data:[SUPP_REG.Americas||0,SUPP_REG.EMEA||0,SUPP_REG.APJ||0,SUPP_REG.LATAM||0],backgroundColor:REG_PAL,borderWidth:3,borderColor:'#1F1E5D'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'bottom',labels:{color:'rgba(255,255,255,.85)',font:axF,boxWidth:11,padding:10}},tooltip:{backgroundColor:'rgba(0,0,0,.85)',callbacks:{label:function(c){return ' '+c.label+': '+c.parsed+' ('+Math.round(c.parsed/SUPP_TOTAL*100)+'%)';}}}}}});
+  new Chart(document.getElementById('chartProdRegion'),{type:'doughnut',data:{labels:['Americas','EMEA','APJ','LATAM'],datasets:[{data:[PROD_REG.Americas||0,PROD_REG.EMEA||0,PROD_REG.APJ||0,PROD_REG.LATAM||0],backgroundColor:REG_PAL,borderWidth:3,borderColor:'#1F1E5D'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'bottom',labels:{color:'rgba(255,255,255,.85)',font:axF,boxWidth:11,padding:10}},tooltip:{backgroundColor:'rgba(0,0,0,.85)',callbacks:{label:function(c){return ' '+c.label+': '+c.parsed+' ('+Math.round(c.parsed/PROD_TOTAL*100)+'%)';}}}}}});
+};
+</script>
+</body>
+</html>
