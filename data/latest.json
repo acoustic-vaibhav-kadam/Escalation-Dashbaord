@@ -118,7 +118,7 @@
   "cat_labels": [
     "Support",
     "Not Set",
-    "Strained Relationship External Factors",
+    "Strained Rel.",
     "Product",
     "System Availability",
     "TechOps",
@@ -137,14 +137,14 @@
   ],
   "cat_total": 928,
   "cat_strained": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
+    2,
+    1,
+    4,
+    2,
+    2,
+    2,
+    2,
+    2
   ],
   "cat_product": [
     1,
@@ -168,18 +168,41 @@
   ],
   "supp_reg": {
     "EMEA": 64,
-    "Americas": 164,
-    "\u2014": 27,
+    "Americas": 191,
     "APJ": 18
   },
   "prod_reg": {
     "EMEA": 33,
-    "Americas": 47,
-    "\u2014": 19,
+    "Americas": 66,
     "APJ": 7
   },
-  "res_labels": [],
-  "res_vals": [],
+  "prod_dist": {
+    "Campaign": 777,
+    "Connect": 89,
+    "Content": 16,
+    "Exchange": 15,
+    "Tealeaf": 31
+  },
+  "res_labels": [
+    "Support",
+    "Not Set",
+    "Strained Rel.",
+    "Product",
+    "System Availability",
+    "TechOps",
+    "Service",
+    "Provisioning"
+  ],
+  "res_vals": [
+    120.0,
+    135.2,
+    208.5,
+    165.9,
+    196.5,
+    90.0,
+    76.5,
+    261.4
+  ],
   "top5": [
     {
       "acc": "Igni S.A. de C.V.",
@@ -189,13 +212,13 @@
     },
     {
       "acc": "Acoustic",
-      "reg": "\u2014",
+      "reg": "Americas",
       "csm": "\u2014",
       "n": 53
     },
     {
       "acc": "\u2014",
-      "reg": "\u2014",
+      "reg": "Americas",
       "csm": "\u2014",
       "n": 41
     },
@@ -221,9 +244,10 @@
       "cat": "Not Set",
       "sub": "\u2014",
       "pri": "High",
-      "st": "Pending",
+      "st": "Solved",
       "jira": "CO-16294",
       "csm": "Ross Caddy",
+      "product": "Campaign",
       "esc_date": "2026-05-27",
       "created": "2026-05-20"
     },
@@ -238,13 +262,14 @@
       "st": "Pending",
       "jira": "CO-14819",
       "csm": "Ross Caddy",
+      "product": "Campaign",
       "esc_date": "2026-05-28",
       "created": "2026-03-06"
     },
     {
       "id": 407537,
       "org": "\u2014",
-      "reg": "\u2014",
+      "reg": "Americas",
       "esc": "Client Esc",
       "cat": "Support",
       "sub": "\u2014",
@@ -252,6 +277,7 @@
       "st": "Open",
       "jira": "\u2014",
       "csm": "\u2014",
+      "product": "Campaign",
       "esc_date": "2026-05-28",
       "created": "2026-05-08"
     },
@@ -266,6 +292,7 @@
       "st": "Open",
       "jira": "CO-16160",
       "csm": "Sydney King",
+      "product": "Connect",
       "esc_date": "2026-05-26",
       "created": "2026-05-14"
     },
@@ -280,6 +307,7 @@
       "st": "Open",
       "jira": "CO-16256",
       "csm": "\u2014",
+      "product": "Campaign",
       "esc_date": "2026-05-28",
       "created": "2026-05-20"
     },
@@ -294,20 +322,22 @@
       "st": "Open",
       "jira": "CO-16252",
       "csm": "Bill Pinho",
+      "product": "Campaign",
       "esc_date": "2026-05-25",
       "created": "2026-05-25"
     },
     {
       "id": 408162,
       "org": "Acoustic",
-      "reg": "\u2014",
+      "reg": "Americas",
       "esc": "Hot Case",
-      "cat": "Strained Relationship External Factors",
+      "cat": "Strained Rel.",
       "sub": "Escalted for Business urgency",
       "pri": "High",
       "st": "Solved",
       "jira": "\u2014",
       "csm": "\u2014",
+      "product": "Campaign",
       "esc_date": "2026-05-26",
       "created": "2026-05-26"
     },
@@ -316,12 +346,13 @@
       "org": "Under Armour Europe B.V.",
       "reg": "EMEA",
       "esc": "Client Esc",
-      "cat": "Strained Relationship External Factors",
+      "cat": "Strained Rel.",
       "sub": "Client Error",
       "pri": "High",
-      "st": "Solved",
+      "st": "Pending",
       "jira": "https://acoustic-jiraconf.atlassian.net/servicedesk/customer/portal/3/ASEC-408?created=true",
       "csm": "Ross Caddy",
+      "product": "Content",
       "esc_date": "2026-05-27",
       "created": "2026-05-26"
     },
@@ -336,6 +367,7 @@
       "st": "Pending",
       "jira": "\u2014",
       "csm": "Craig Smith",
+      "product": "Campaign",
       "esc_date": "2026-05-26",
       "created": "2026-05-27"
     },
@@ -350,6 +382,7 @@
       "st": "Open",
       "jira": "CO-16287",
       "csm": "Ross Caddy",
+      "product": "Campaign",
       "esc_date": "2026-05-31",
       "created": "2026-05-27"
     },
@@ -358,12 +391,13 @@
       "org": "*Air France KLM*",
       "reg": "EMEA",
       "esc": "Client Esc",
-      "cat": "Strained Relationship External Factors",
+      "cat": "Strained Rel.",
       "sub": "Escalted for Business urgency",
       "pri": "Normal",
       "st": "Open",
       "jira": "CO-16329",
       "csm": "\u2014",
+      "product": "Campaign",
       "esc_date": "2026-05-29",
       "created": "2026-05-28"
     },
@@ -378,6 +412,7 @@
       "st": "Pending",
       "jira": "\u2014",
       "csm": "Kaori Sayers",
+      "product": "Campaign",
       "esc_date": "2026-05-29",
       "created": "2026-05-28"
     },
@@ -392,6 +427,7 @@
       "st": "Open",
       "jira": "CO-16343",
       "csm": "Camila Galvez",
+      "product": "Campaign",
       "esc_date": "2026-05-30",
       "created": "2026-05-29"
     },
@@ -406,6 +442,7 @@
       "st": "Solved",
       "jira": "CO-16326",
       "csm": "Kaori Sayers",
+      "product": "Campaign",
       "esc_date": "2026-05-29",
       "created": "2026-05-29"
     }
@@ -423,7 +460,8 @@
       "days_open": 753,
       "days_esc": 630,
       "jira": "CA-67696",
-      "csm": "Ross Caddy"
+      "csm": "Ross Caddy",
+      "product": "Campaign"
     },
     {
       "id": 14160,
@@ -437,21 +475,23 @@
       "days_open": 646,
       "days_esc": 614,
       "jira": "CA-67696",
-      "csm": "Jamie Martin"
+      "csm": "Jamie Martin",
+      "product": "Campaign"
     },
     {
       "id": 383733,
       "org": "MENARD INC.",
       "reg": "Americas",
       "esc": "Client Esc",
-      "cat": "Strained Relationship External Factors",
+      "cat": "Strained Rel.",
       "sub": "Escalted for Visibility / Lack of Trust",
       "pri": "Normal",
       "st": "Pending",
       "days_open": 305,
       "days_esc": 290,
       "jira": "\u2014",
-      "csm": "Yonahtan Pimentel"
+      "csm": "Yonahtan Pimentel",
+      "product": "Campaign"
     },
     {
       "id": 385088,
@@ -465,7 +505,8 @@
       "days_open": 292,
       "days_esc": 248,
       "jira": "CA-125741, CA-131254, CO-11062",
-      "csm": "\u2014"
+      "csm": "\u2014",
+      "product": "Campaign"
     },
     {
       "id": 395839,
@@ -479,7 +520,8 @@
       "days_open": 201,
       "days_esc": 139,
       "jira": "CA-114524, CA-123134, CO-12759",
-      "csm": "Bill Pinho"
+      "csm": "Bill Pinho",
+      "product": "Connect"
     },
     {
       "id": 399360,
@@ -493,7 +535,8 @@
       "days_open": 170,
       "days_esc": 136,
       "jira": "CA-128118, CO-13768",
-      "csm": "Ross Caddy"
+      "csm": "Ross Caddy",
+      "product": "Campaign"
     },
     {
       "id": 399487,
@@ -507,7 +550,8 @@
       "days_open": 167,
       "days_esc": 132,
       "jira": "\u2014",
-      "csm": "\u2014"
+      "csm": "\u2014",
+      "product": "Campaign"
     },
     {
       "id": 398024,
@@ -521,7 +565,8 @@
       "days_open": 181,
       "days_esc": 130,
       "jira": "CA-133597, CO-13269",
-      "csm": "Ross Caddy"
+      "csm": "Ross Caddy",
+      "product": "Content"
     },
     {
       "id": 402974,
@@ -535,21 +580,23 @@
       "days_open": 129,
       "days_esc": 129,
       "jira": "CO-13859",
-      "csm": "Bill Pinho"
+      "csm": "Bill Pinho",
+      "product": "Campaign"
     },
     {
       "id": 398935,
       "org": "First Service Credit Union",
       "reg": "Americas",
       "esc": "Hot Case",
-      "cat": "Strained Relationship External Factors",
+      "cat": "Strained Rel.",
       "sub": "Escalted for Business urgency",
       "pri": "High",
       "st": "Open",
       "days_open": 173,
       "days_esc": 118,
       "jira": "CA-8021, CO-15971",
-      "csm": "Nicole Tirella"
+      "csm": "Nicole Tirella",
+      "product": "Campaign"
     },
     {
       "id": 404465,
@@ -563,7 +610,8 @@
       "days_open": 97,
       "days_esc": 97,
       "jira": "CO-14530",
-      "csm": "\u2014"
+      "csm": "\u2014",
+      "product": "Campaign"
     },
     {
       "id": 404296,
@@ -577,7 +625,8 @@
       "days_open": 101,
       "days_esc": 91,
       "jira": "CA-138470, CO-14426, CO-14547",
-      "csm": "\u2014"
+      "csm": "\u2014",
+      "product": "Campaign"
     },
     {
       "id": 405537,
@@ -591,7 +640,8 @@
       "days_open": 74,
       "days_esc": 74,
       "jira": "CO-15013",
-      "csm": "Camila Lobos"
+      "csm": "Camila Lobos",
+      "product": "Campaign"
     },
     {
       "id": 404103,
@@ -605,7 +655,8 @@
       "days_open": 104,
       "days_esc": 69,
       "jira": "CA-133157, CA-144684, CO-14339, CO-15895",
-      "csm": "Craig Smith"
+      "csm": "Craig Smith",
+      "product": "Campaign"
     },
     {
       "id": 405656,
@@ -619,7 +670,8 @@
       "days_open": 73,
       "days_esc": 68,
       "jira": "CA-131254, CO-15036",
-      "csm": "Camila Galvez"
+      "csm": "Camila Galvez",
+      "product": "Campaign"
     },
     {
       "id": 406134,
@@ -633,7 +685,8 @@
       "days_open": 60,
       "days_esc": 60,
       "jira": "CO-15461",
-      "csm": "Camila Lobos"
+      "csm": "Camila Lobos",
+      "product": "Tealeaf"
     },
     {
       "id": 368278,
@@ -647,21 +700,23 @@
       "days_open": 446,
       "days_esc": 55,
       "jira": "CA-91962, CA-93048, CO-7250",
-      "csm": "Bill Pinho"
+      "csm": "Bill Pinho",
+      "product": "Campaign"
     },
     {
       "id": 406337,
       "org": "Aetna - Resources For Living",
       "reg": "Americas",
       "esc": "Hot Case",
-      "cat": "Strained Relationship External Factors",
+      "cat": "Strained Rel.",
       "sub": "Escalted for Business urgency",
       "pri": "High",
       "st": "Pending",
       "days_open": 54,
       "days_esc": 54,
       "jira": "CO-15347, CO-16048, CO-16076",
-      "csm": "Sydney King"
+      "csm": "Sydney King",
+      "product": "Connect"
     },
     {
       "id": 404891,
@@ -675,7 +730,8 @@
       "days_open": 89,
       "days_esc": 53,
       "jira": "CA-144320, CO-14794",
-      "csm": "Ross Caddy"
+      "csm": "Ross Caddy",
+      "product": "Campaign"
     },
     {
       "id": 406686,
@@ -689,7 +745,8 @@
       "days_open": 46,
       "days_esc": 42,
       "jira": "CA-138706, CO-15514",
-      "csm": "\u2014"
+      "csm": "\u2014",
+      "product": "Connect"
     },
     {
       "id": 404687,
@@ -703,7 +760,8 @@
       "days_open": 94,
       "days_esc": 41,
       "jira": "CO-15551",
-      "csm": "Kaori Sayers"
+      "csm": "Kaori Sayers",
+      "product": "Tealeaf"
     },
     {
       "id": 407547,
@@ -717,7 +775,8 @@
       "days_open": 24,
       "days_esc": 20,
       "jira": "CO-15990",
-      "csm": "Ross Caddy"
+      "csm": "Ross Caddy",
+      "product": "Campaign"
     },
     {
       "id": 407629,
@@ -731,7 +790,8 @@
       "days_open": 20,
       "days_esc": 19,
       "jira": "\u2014",
-      "csm": "Bill Pinho"
+      "csm": "Bill Pinho",
+      "product": "Campaign"
     },
     {
       "id": 407639,
@@ -745,7 +805,8 @@
       "days_open": 20,
       "days_esc": 18,
       "jira": "CA-145289, CA-145504, CA-146002, CO-15991",
-      "csm": "Ross Caddy"
+      "csm": "Ross Caddy",
+      "product": "Connect"
     },
     {
       "id": 406357,
@@ -759,21 +820,23 @@
       "days_open": 54,
       "days_esc": 17,
       "jira": "CA-138480, CO-15373",
-      "csm": "Yonahtan Pimentel"
+      "csm": "Yonahtan Pimentel",
+      "product": "Connect"
     },
     {
       "id": 407865,
       "org": "Abu Dhabi Islamic Bank",
       "reg": "EMEA",
       "esc": "Client Esc",
-      "cat": "Strained Relationship External Factors",
+      "cat": "Strained Rel.",
       "sub": "Escalted for Business urgency",
       "pri": "Normal",
       "st": "Pending",
       "days_open": 15,
       "days_esc": 15,
       "jira": "\u2014",
-      "csm": "Ross Caddy"
+      "csm": "Ross Caddy",
+      "product": "Campaign"
     },
     {
       "id": 407151,
@@ -787,7 +850,8 @@
       "days_open": 33,
       "days_esc": 13,
       "jira": "\u2014",
-      "csm": "\u2014"
+      "csm": "\u2014",
+      "product": "Campaign"
     },
     {
       "id": 407801,
@@ -801,7 +865,8 @@
       "days_open": 17,
       "days_esc": 13,
       "jira": "\u2014",
-      "csm": "Bill Pinho"
+      "csm": "Bill Pinho",
+      "product": "Campaign"
     },
     {
       "id": 408154,
@@ -815,7 +880,8 @@
       "days_open": 7,
       "days_esc": 7,
       "jira": "CO-16252",
-      "csm": "Bill Pinho"
+      "csm": "Bill Pinho",
+      "product": "Campaign"
     },
     {
       "id": 407771,
@@ -829,7 +895,8 @@
       "days_open": 18,
       "days_esc": 6,
       "jira": "CO-16160",
-      "csm": "Sydney King"
+      "csm": "Sydney King",
+      "product": "Connect"
     },
     {
       "id": 408207,
@@ -843,21 +910,23 @@
       "days_open": 5,
       "days_esc": 6,
       "jira": "\u2014",
-      "csm": "Craig Smith"
+      "csm": "Craig Smith",
+      "product": "Campaign"
     },
     {
-      "id": 408003,
-      "org": "Nexent Bank N.V. Amsterdam Sucursala Bucure\u0219ti",
+      "id": 408175,
+      "org": "Under Armour Europe B.V.",
       "reg": "EMEA",
       "esc": "Client Esc",
-      "cat": "Not Set",
-      "sub": "\u2014",
+      "cat": "Strained Rel.",
+      "sub": "Client Error",
       "pri": "High",
       "st": "Pending",
-      "days_open": 12,
+      "days_open": 6,
       "days_esc": 5,
-      "jira": "CO-16294",
-      "csm": "Ross Caddy"
+      "jira": "https://acoustic-jiraconf.atlassian.net/servicedesk/customer/portal/3/ASEC-408?created=true",
+      "csm": "Ross Caddy",
+      "product": "Content"
     },
     {
       "id": 405034,
@@ -871,7 +940,8 @@
       "days_open": 87,
       "days_esc": 4,
       "jira": "CO-14819",
-      "csm": "Ross Caddy"
+      "csm": "Ross Caddy",
+      "product": "Campaign"
     },
     {
       "id": 407537,
@@ -885,7 +955,8 @@
       "days_open": 24,
       "days_esc": 4,
       "jira": "\u2014",
-      "csm": "\u2014"
+      "csm": "\u2014",
+      "product": "Campaign"
     },
     {
       "id": 407973,
@@ -899,21 +970,23 @@
       "days_open": 12,
       "days_esc": 4,
       "jira": "CO-16256",
-      "csm": "\u2014"
+      "csm": "\u2014",
+      "product": "Campaign"
     },
     {
       "id": 408268,
       "org": "*Air France KLM*",
       "reg": "EMEA",
       "esc": "Client Esc",
-      "cat": "Strained Relationship External Factors",
+      "cat": "Strained Rel.",
       "sub": "Escalted for Business urgency",
       "pri": "Normal",
       "st": "Open",
       "days_open": 4,
       "days_esc": 3,
       "jira": "CO-16329",
-      "csm": "\u2014"
+      "csm": "\u2014",
+      "product": "Campaign"
     },
     {
       "id": 408295,
@@ -927,7 +1000,8 @@
       "days_open": 4,
       "days_esc": 3,
       "jira": "\u2014",
-      "csm": "Kaori Sayers"
+      "csm": "Kaori Sayers",
+      "product": "Campaign"
     },
     {
       "id": 408319,
@@ -941,7 +1015,8 @@
       "days_open": 3,
       "days_esc": 2,
       "jira": "CO-16343",
-      "csm": "Camila Galvez"
+      "csm": "Camila Galvez",
+      "product": "Campaign"
     },
     {
       "id": 408219,
@@ -955,7 +1030,8 @@
       "days_open": 5,
       "days_esc": 1,
       "jira": "CO-16287",
-      "csm": "Ross Caddy"
+      "csm": "Ross Caddy",
+      "product": "Campaign"
     }
   ]
 }
